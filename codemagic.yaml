@@ -1,0 +1,12 @@
+workflows:
+  ios-workflow:
+    name: Build iOS app
+    environment:
+      xcode: latest
+    scripts:
+      - name: Build and archive app
+        script: |
+          xcodebuild -scheme MaakavLimud -configuration Release -sdk iphoneos -archivePath $CM_BUILD_DIR/Build.xcarchive archive
+          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/Build.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR/Build
+    artifacts:
+      - Build/**/*.ipa
